@@ -1,3 +1,9 @@
+# @Author: Hsien-Che Charles Chen
+# @Date:   02-17-2017
+# @Project: PA4
+# @Last modified by:   Hsien-Che Charles Chen
+# @Last modified time: 02-17-2017
+
 import math as mt
 import pandas as pd
 import numpy as np
@@ -43,7 +49,7 @@ def calcSingleAttribute(select, vectors):
 
 
 # Calculate attributes of each column within the vector.
-# Uses multi-threading.
+# Uses multi-threading. Returns a list of series.
 def calcAttribute(vectors):
 	lim = vectors[0].size
 	count = 0
@@ -56,5 +62,5 @@ def calcAttribute(vectors):
 		count += 1
 
 	# Merge
-	result = pd.concat(results, axis = 1)
-	return result
+	# result = pd.concat(results, axis = 1)
+	return results

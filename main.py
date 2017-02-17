@@ -2,7 +2,7 @@
 # @Date:   02-03-2017
 # @Project: HW3
 # @Last modified by:   Hsien-Che Charles Chen
-# @Last modified time: 02-16-2017
+# @Last modified time: 02-17-2017
 # @Desc.: Requires Python 2.7 + Anaconda.
 
 import pandas as pd
@@ -12,14 +12,13 @@ import time
 
 # Custom Files #
 import data_loader as ld
-from decision_tree_util import *
-from attributes import *
+import decision_tree as dt
 
 
 def main():
 	trainingData = ld.readFile("hw3train.txt")
-	attr = calcAttribute(trainingData["vect"])
-	print attr
+	tree = dt.DTree(trainingData)
+	tree.ID3()
 
 if __name__ == "__main__":
 	t0 = time.time()
