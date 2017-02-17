@@ -51,10 +51,11 @@ class DTree:
 		df = node.df
 		# Yes
 		node.l = Node(df[df.apply(lambda x: x['vect'][dim] <= thresh, axis = 1)], 0.0, -1.0)
-		print node.l.df
-		exit()
+		node.r = Node(df[df.apply(lambda x: x['vect'][dim] > thresh, axis = 1)], 0.0, -1.0)
 
 		# Resolve Those Nodes.
+		_resolve(node.l)
+		_resolve(node.r)
 
 		# Remove dataframe reference in this node to save memory
 		node.v = None
