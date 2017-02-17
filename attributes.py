@@ -17,7 +17,7 @@ from operator import itemgetter
 # Returns Data frame with 1 by m-1.
 # Input will be sorted.
 def calcSingleAttribute(select, vectors):
-	if select < 0 or vectors[0].size < select:
+	if select < 0 or vectors.iloc[0].size < select:
 		return pd.DataFrame();
 
 	vectSize = vectors.size
@@ -43,7 +43,7 @@ def calcSingleAttribute(select, vectors):
 			break
 
 		indLs.append(index)
-		ls.append((vect[select] + arr[index + 1][select])/2.0)
+		ls.append((float(vect[select]) + arr[index + 1][select])/2.0)
 
 	return pd.Series(ls, index = indLs)
 
@@ -51,7 +51,7 @@ def calcSingleAttribute(select, vectors):
 # Calculate attributes of each column within the vector.
 # Uses multi-threading. Returns a list of series.
 def calcAttribute(vectors):
-	lim = vectors[0].size
+	lim = vectors.iloc[0].size
 	count = 0
 	results = []
 

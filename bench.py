@@ -1,10 +1,8 @@
 # @Author: Hsien-Che Charles Chen
-# @Date:   02-03-2017
-# @Project: HW3
+# @Date:   02-17-2017
+# @Project: PA4
 # @Last modified by:   Hsien-Che Charles Chen
 # @Last modified time: 02-17-2017
-# @Desc.: Requires Python 2.7 + Anaconda.
-
 import pandas as pd
 import numpy as np
 import math as mt
@@ -14,10 +12,8 @@ import time
 import data_loader as ld
 import decision_tree as dt
 
-def main():
+def printErrors(tree):
 	trainingData = ld.readFile("hw3train.txt")
-	tree = dt.DTree(trainingData)
-	tree.ID3()
 
 	wrong = 0
 	size = trainingData["vect"].size
@@ -38,12 +34,3 @@ def main():
 			wrong += 1
 
 	print "Test Error: " + str(float(wrong) / size)
-
-	return tree
-
-
-if __name__ == "__main__":
-	t0 = time.time()
-	main()
-	t1 = time.time()
-	print "\n\nTotal Run Time: " + str(t1-t0) + "secs"

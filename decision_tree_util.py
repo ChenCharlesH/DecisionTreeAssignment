@@ -16,26 +16,33 @@ def bestAttrWithEntropy(df, attr, baseEntropy):
 	infoGain = -1
 	threshold = -1
 
+	indexResult = -1
 	for index, sAttr in enumerate(attr):
 		# Drop duplicates in attributes.
 		sAttr = sAttr.drop_duplicates()
-		locValues = []
 		# Iterate through each value.
 		for attrIndex, thresh in sAttr.iteritems():
 			copyDf = df.copy()
 			# Convert Vectors to a Single Attribute for Easy Compare
 			copyDf['vect'] = copyDf['vect'].apply(lambda x: x[index])
-			en1 = entropyFromDF(copyDf[copyDf['vect'] <= thresh])
-			en2 = entropyFromDF(copyDf[copyDf['vect'] > thresh])
+			df1 = copyDf[copyDf['vect'] <= thresh]
+			df2 = copyDf[copyDf['vect'] > thresh]
+			en1 = entropyFromDF(df1)
+			en2 = entropyFromDF(df2)
+
+			totSize = df1.size + df2.size
+			prob1 = df1.size / totSize
+			prob2 = df2.size / totSize
 
 			# Split into two branches.
-			total = 0.5 * en1 + 0.5 * en2
+			total = prob1 * en1 + prob2 * en2
 			locInfoGain = baseEntropy - total
 			if locInfoGain > infoGain:
 				infoGain = locInfoGain
 				threshold = thresh
+				indexResult = index
 
-	return (threshold, index)
+	return (threshold, indexResult)
 
 # Calculate H(x) Entropy Based off DF from loader.
 def entropyFromDF(df):
